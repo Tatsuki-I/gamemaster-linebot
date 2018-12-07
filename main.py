@@ -13,7 +13,6 @@ from linebot.models import (
 
 app = Flask(__name__)
 
-#環境変数取得
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
 YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
 
@@ -24,13 +23,13 @@ class Werewolf(object):
     def __init__(self):
         self.phase = "wait"
         self.user_id = []
-        self.jpb = {}
-        self.dead = {}
+#        self.jpb = {}
+#        self.dead = {}
 
     def add_user(self, user_id):
         self.user_id.append(user_id)
-        self.job[user_id] = "citizen"
-        self.dead[user_id] = False
+#        self.job[user_id] = "citizen"
+#        self.dead[user_id] = False
 
 werewolf = Werewolf()
 
