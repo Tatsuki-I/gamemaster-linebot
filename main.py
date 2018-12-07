@@ -84,7 +84,7 @@ def werewolf_start(event):
                 event.reply_token,
                 TextSendMessage(text = "受け付けを締め切りました。"))
             jobs = jobs2
-            #random.shuffle(jobs)
+            random.shuffle(jobs)
             for (uid, job) in zip(werewolf.user_id, jobs):
                 line_bot_api.push_message(uid, TextSendMessage(text=job))
     elif event.message.text == "/end":
