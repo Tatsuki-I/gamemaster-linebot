@@ -1,5 +1,6 @@
 from flask import Flask, request, abort
 import os
+import requests
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -86,7 +87,7 @@ def werewolf_start(event):
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + YOUR_CHANNEL_ACCESS_TOKEN
         }
-        request.post(url, data=json.dumps(data), headers=headers)
+        requests.post(url, data=json.dumps(data), headers=headers)
         werewolf.phase == "night"
 
 
