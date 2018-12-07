@@ -41,8 +41,12 @@ class Werewolf(object):
         self.done = {}
         self.dead = {}
 
-werewolf = Werewolf()
 jobs2 = ["citizen", "werewolf"]
+jobss = { 2:["citizen", "werewolf"]
+        , 3:["citizen", "citizen", "werewolf"]
+        , 4:["citizen", "citizen", "seer", "werewolf"]
+        , 5:["citizen", "citizen", "seer", "werewolf", "knight"]
+        , 6:["citizen", "citizen", "seer", "werewolf", "knight", "madman"] }
 
 @app.route("/")
 def hello_world():
@@ -88,10 +92,9 @@ def werewolf_start(event):
                 event.reply_token,
                 TextSendMessage(text = "人数が足りません。"))
         else:
-        #if len(werewolf.user_id) == 2:
             werewolf.phase == "night"
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "受け付けを締め切りました。"))
-            jobs = random.sample(jobs2, len(werewolf.user_id))
+            jobs = random.sample(jobss[len(werewolf.user_id)],len(werewolf.user_id))
             for (uid, job) in zip(werewolf.user_id, jobs):
                 if job == "citizen":
                     werewolf.done = True
