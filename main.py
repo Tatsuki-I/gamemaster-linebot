@@ -86,11 +86,7 @@ def werewolf_start(event):
                 TextSendMessage(text = "受け付けを締め切りました。"))
             jobs = random.sample(jobs2, len(werewolf.user_id))
             for (uid, job) in zip(werewolf.user_id, jobs):
-                if job == "werewolf":
-                    jobjp = "人狼"
-                else:
-                    jobjp = "市民"
-                line_bot_api.push_message(uid, TextSendMessage(text=jobjp)
+                line_bot_api.push_message(uid, TextSendMessage(text=job)
                 #"あなたの役職は" + jobjp + "です。"))
     elif not werewolf.phase == "wait" and event.message.text == "/end":
         werewolf = Werewolf()
