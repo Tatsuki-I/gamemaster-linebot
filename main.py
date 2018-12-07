@@ -33,6 +33,7 @@ class Werewolf(object):
         self.dead[user_id] = False
 
 werewolf = Werewolf()
+jobs = ["citizen", "werewolf"]
 
 @app.route("/")
 def hello_world():
@@ -55,7 +56,6 @@ def callback():
 
     return 'OK'
 
-jobs = ["citizen", "werewolf"]
 
 @handler.add(MessageEvent, message = TextMessage)
 def werewolf_start(event):
