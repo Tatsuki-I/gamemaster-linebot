@@ -20,6 +20,13 @@ YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
+class Werewolf(object):
+    def __init__(self):
+        self.phase = "wait"
+        self.user_id = []
+
+werewolf = Werewolf()
+
 @app.route("/")
 def hello_world():
     return "hello world!"
@@ -42,11 +49,12 @@ def callback():
     return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
-def werewolf(event):
-    if event.message.text == "/werewolf":
+def werewolf_start(event):
+    if event.message.text == "/werewolf" && werewolf.phase == "wait":
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="人狼ゲームを始めます。\nまずはじめに参加者を募ります。\n参加したい方は join と発言して下さい。"))
+        werewolf.phase = "join"
 
 
 
