@@ -74,7 +74,7 @@ def werewolf_start(event):
     elif werewolf.phase == "join" and event.message.text == "finish":
         url = 'https://api.line.me/v2/bot/message/push'
         data = {
-            "to": werewolf.user_id.head,
+            "to": "U710cbbcec0016ad696823a364a5902d9"
             "messages": [
                 {
                     "type": "text",
@@ -86,7 +86,7 @@ def werewolf_start(event):
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + YOUR_CHANNEL_ACCESS_TOKEN
         }
-        requests.post(url, data=json.dumps(data), headers=headers)
+        request.post(url, data=json.dumps(data), headers=headers)
         werewolf.phase == "night"
 
 
