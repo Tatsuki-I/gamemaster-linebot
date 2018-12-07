@@ -23,7 +23,13 @@ handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 class Werewolf(object):
     def __init__(self):
         self.phase = "wait"
-        self.user_id = []
+        self.user = []
+
+class GameMember(object):
+    def __init__(self, user_id):
+        self.user_id = user_id
+        self.job = ""
+        self.isDead = False
 
 werewolf = Werewolf()
 
@@ -56,6 +62,7 @@ def werewolf_start(event):
             event.reply_token,
             TextSendMessage(text="人狼ゲームを始めます。\nまずはじめに参加者を募ります。\n参加したい方は join と発言して下さい。"))
     elif werewolf.phase == "join" and event.message.text == "join":
+        werewolf.user.append(GameMember(event.source.user_id))
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="受け付けました"))
