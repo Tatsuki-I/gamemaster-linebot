@@ -31,6 +31,8 @@ class GameMember(object):
         self.job = ""
         self.isDead = False
 
+
+
 werewolf = Werewolf()
 
 @app.route("/")
@@ -62,9 +64,9 @@ def werewolf_start(event):
             event.reply_token,
             TextSendMessage(text = "人狼ゲームを始めます。\nまずはじめに参加者を募ります。\n参加したい方は join と発言して下さい。\nまた、全員の参加が終了したら finish と発言して下さい。"))
     elif werewolf.phase == "join" and event.message.text == "join":
-#        if not any(map(event.source.user_id in werewolf.user.user_id)):
-        if 1 == 1:
-            werewolf.user.append(GameMember(event.source.user_id))
+        if not any(map(event.source.user_id in werewolf.user)):
+#        if 1 == 1:
+            werewolf.user.append(event.source.user_id)
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text = event.source.user_id + "受け付けました。"))
