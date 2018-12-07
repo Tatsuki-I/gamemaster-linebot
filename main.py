@@ -46,8 +46,7 @@ def start_werewolf(event):
     if event.message.text == "/werewolf":
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=event.message.display_name))
-            # TextSendMessage(text="人狼ゲームを始めます。\n親は" + event.userId))
+            TextSendMessage(text="人狼ゲームを始めます。\nまずはじめに参加者を募ります。\n参加したい方は join と発言して下さい。))
 
 
 
