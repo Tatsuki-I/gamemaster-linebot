@@ -25,11 +25,13 @@ class Werewolf(object):
         self.phase = "wait"
         self.user_id = []
         self.job = {}
+        self.done = {}
         self.dead = {}
 
     def add_user(self, user_id):
         self.user_id.append(user_id)
         self.job[user_id] = "citizen"
+        self.done[user_id] = False
         self.dead[user_id] = False
 
 werewolf = Werewolf()
@@ -85,11 +87,12 @@ def werewolf_start(event):
             jobs = random.sample(jobs2, len(werewolf.user_id))
             for (uid, job) in zip(werewolf.user_id, jobs):
                 if job == "citizen":
-                    line_bot_api.push_message(uid, TextSendMessage(text="あなたの役職は市民です。\n夜のアクションはありません。\nスマホを操作するふりをして下さい"))
+                    line_bot_api.push_message(uid, TextSendMessage(text="あなたの役職は市民です。\n夜のアクションはありません。\nスマホを操作するふりをして下さい。"))
                 elif job == "werewolf":
-                    line_bot_api.push_message(uid, TextSendMessage(text="あなたの役職は人狼です。\n夜のアクションを行います。\n殺したい相手を選んで下さい。"))
+                    line_bot_api.push_message(uid, TextSendMessage(text="あなたの役職は人狼です。\n夜のアクションを行います。\n殺したい相手のIDを入力して下さい。"))
     elif not werewolf.phase == "wait" and event.message.text == "/end":
-        #werewolf = Werewolf()
+        del werewolf
+        werewolf = Werewolf()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = "ゲームを強制終了します。"))
