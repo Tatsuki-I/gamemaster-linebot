@@ -79,11 +79,11 @@ def werewolf_start(event):
                 TextSendMessage(text = "人数が足りません。"))
         elif len(werewolf.user_id) == 2:
             werewolf.phase == "night"
-            jobs = shuffle(jobs2)
+            jobs = random.shuffle(jobs2)
             for (uid, job) in zip(werewolf.user_id, jobs):
                 line_bot_api.push_message(uid, TextSendMessage(text=job))
 
-                
+
 # @handler.add(MessageEvent, message=TextMessage)
 # def handle_message(event):
 #     line_bot_api.reply_message(
