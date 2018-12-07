@@ -1,6 +1,7 @@
 from flask import Flask, request, abort
 import os
 import random
+import time
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -79,6 +80,7 @@ def callback():
 def werewolf_start(event):
     if werewolf.phase == "wait" and "/werewolf" in event.message.text.lower():
         werewolf.phase = "join"
+        werewolf.group_id = event.source.group_id
         line_bot_api.reply_message(
             event.reply_token,
 #            TextSendMessage(text = "人狼ゲームを始めます。\nゲームを開始する前に、このbotを友達登録して下さい。\nはじめに参加者を募ります。\n参加したい方は join と発言して下さい。\nまた、全員の参加が終了したら finish と発言して下さい。\nゲームを強制終了したい場合は、 /end と発言して下さい。"))
@@ -104,11 +106,25 @@ def werewolf_start(event):
             for (uid, job) in zip(werewolf.user_id, jobs):
                 werewolf.job[uid] = job
                 night_act(uid, werewolf.is1st)
+            werewolf.is1st = False
+    elif werewolf.phase == "night":
+        if werewolf.done[event.source.user_id]:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text = "あなたのアクションは既に終了しています。"))
+        elif event.message.text.isdecimal():
+            wake_act(int(event.message.text))
+            werewolf.done[event.source.user_id] = True
+        if all(werewolf.done.items()):
+            time.sleep(10)
+            line_bot_api.push_message(werewolf.group_id, TextSendMessage(text= "全員の夜のアクションが終了しました。"))
+            
+
     elif not werewolf.phase == "wait" and "/end" in event.message.text.lower():
         werewolf.reinit()
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text = "ゲームを強制終了します。"))
+            TextSendMessage(text = "ゲームを強制終了しました。"))
 
 def night_act(uid, is1st):
     if is1st:
@@ -124,6 +140,7 @@ def night_act(uid, is1st):
         elif werewolf.job[uid] == "madman":
             werewolf.done[uid] = True
             line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は狂人です。\n夜のアクションはありません。\n対面してゲームを行っている場合は、画面を操作するふりをして下さい。"))
+       
 
 
 
