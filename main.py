@@ -114,31 +114,16 @@ def night_act(uid, is1st):
     if is1st:
         if werewolf.job[uid] == "citizen":
             werewolf.done[uid] = True
-            line_bot_api.push_message(uid, TextSendMessage(text=
-                "あなたの役職は市民です。\n
-                夜のアクションはありません。\n
-                対面してゲームを行っている場合は、画面を操作するふりをして下さい。"))
+            line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は市民です。\n夜のアクションはありません。\n対面してゲームを行っている場合は、画面を操作するふりをして下さい。"))
         elif werewolf.job[uid] == "werewolf":
-            line_bot_api.push_message(uid, TextSendMessage(text=
-                "あなたの役職は人狼です。\n
-                夜のアクションを行います。\n
-                殺したい相手のIDを入力して下さい。"))
+            line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は人狼です。\n夜のアクションを行います。\n殺したい相手のIDを入力して下さい。"))
         elif werewolf.job[uid] == "seer":
-            line_bot_api.push_message(uid, TextSendMessage(text=
-                "あなたの役職は占い師です。\n
-                夜のアクションを行います。\n
-                占いたい相手のIDを入力して下さい。"))
+            line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は占い師です。\n夜のアクションを行います。\n占いたい相手のIDを入力して下さい。"))
         elif werewolf.job[uid] == "knight":
-            line_bot_api.push_message(uid, TextSendMessage(text=
-                "あなたの役職は占い師です。\n
-                夜のアクションを行います。\n
-                守りたい相手のIDを入力して下さい。"))
+            line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は占い師です。\n夜のアクションを行います。\n守りたい相手のIDを入力して下さい。"))
         elif werewolf.job[uid] == "madman":
             werewolf.done[uid] = True
-            line_bot_api.push_message(uid, TextSendMessage(text=
-                "あなたの役職は狂人です。\n
-                夜のアクションはありません。\n
-                対面してゲームを行っている場合は、画面を操作するふりをして下さい。"))
+            line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は狂人です。\n夜のアクションはありません。\n対面してゲームを行っている場合は、画面を操作するふりをして下さい。"))
 
 
 
