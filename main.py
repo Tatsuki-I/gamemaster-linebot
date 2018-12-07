@@ -97,16 +97,23 @@ def werewolf_start(event):
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "受け付けを締め切りました。"))
             jobs = random.sample(jobss[len(werewolf.user_id)], len(werewolf.user_id))
             for (uid, job) in zip(werewolf.user_id, jobs):
-                if job == "citizen":
-                    werewolf.done[uid] = True
-                    line_bot_api.push_message(uid, TextSendMessage(text="あなたの役職は市民です。\n夜のアクションはありません。\n対面してゲームを行っている場合は、画面を操作するふりをして下さい。"))
-                elif job == "werewolf":
-                    line_bot_api.push_message(uid, TextSendMessage(text="あなたの役職は人狼です。\n夜のアクションを行います。\n殺したい相手のIDを入力して下さい。"))
+                werewolf.job[uid] = job
+                night_act(uid, True)
     elif not werewolf.phase == "wait" and "/end" in event.message.text.lower():
         werewolf.reinit()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = "ゲームを強制終了します。"))
+
+def night_act(uid, is1st):
+    if is1st:
+        if werewolf.job[uid] == "citizen":
+            werewolf.done[uid] = True
+            line_bot_api.push_message(uid, TextSendMessage(text="あなたの役職は市民です。\n夜のアクションはありません。\n対面してゲームを行っている場合は、画面を操作するふりをして下さい。"))
+        elif werewolf.job[uid] == "werewolf":
+            line_bot_api.push_message(uid, TextSendMessage(text="あなたの役職は人狼です。\n夜のアクションを行います。\n殺したい相手のIDを入力して下さい。"))
+
+
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
