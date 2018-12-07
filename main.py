@@ -69,9 +69,6 @@ def werewolf_start(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text = event.source.user_id + "受け付けました。"))
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text = werewolf.user.user_id))
         else:
             line_bot_api.reply_message(
             event.reply_token,
