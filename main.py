@@ -29,7 +29,6 @@ class Werewolf(object):
         self.job = {}
         self.done = {}
         self.dead = {}
-        self.is1st = True
 
     def add_user(self, user_id):
         self.user_id.append(user_id)
@@ -44,7 +43,6 @@ class Werewolf(object):
         self.job = {}
         self.done = {}
         self.dead = {}
-        self.is1st = True
 
 werewolf = Werewolf()
 
@@ -83,8 +81,7 @@ def werewolf_start(event):
         werewolf.group_id = event.source.group_id
         line_bot_api.reply_message(
             event.reply_token,
-#            TextSendMessage(text = "人狼ゲームを始めます。\nゲームを開始する前に、このbotを友達登録して下さい。\nはじめに参加者を募ります。\n参加したい方は join と発言して下さい。\nまた、全員の参加が終了したら finish と発言して下さい。\nゲームを強制終了したい場合は、 /end と発言して下さい。"))
-            TextSendMessage(text = event.source.group_id))
+            TextSendMessage(text = "人狼ゲームを始めます。\nゲームを開始する前に、このbotを友達登録して下さい。\nはじめに参加者を募ります。\n参加したい方は join と発言して下さい。\nまた、全員の参加が終了したら finish と発言して下さい。\nゲームを強制終了したい場合は、 /end と発言して下さい。"))
     elif werewolf.phase == "join" and "join" in event.message.text.lower() and not event.source.user_id in werewolf.user_id:
         werewolf.add_user(event.source.user_id)
         line_bot_api.reply_message(
@@ -101,14 +98,14 @@ def werewolf_start(event):
                 TextSendMessage(text = "人数が足りません。"))
         else:
             werewolf.phase == "night"
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "受け付けを締め切りました。"))
             jobs = random.sample(jobss[len(werewolf.user_id)], len(werewolf.user_id))
             for (uid, job) in zip(werewolf.user_id, jobs):
                 werewolf.job[uid] = job
-                night_act(uid, werewolf.is1st)
-            werewolf.is1st = False
+                night_act(uid)
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "受け付けを締め切りました。"))
     elif werewolf.phase == "night":
-        if werewolf.done[event.source.user_id]:
+        if True
+        #werewolf.done[event.source.user_id]:
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text = "あなたのアクションは既に終了しています。"))
@@ -129,20 +126,19 @@ def werewolf_start(event):
             event.reply_token,
             TextSendMessage(text = "ゲームを強制終了しました。"))
 
-def night_act(uid, is1st):
-    if is1st:
-        if werewolf.job[uid] == "citizen":
-            werewolf.done[uid] = True
-            line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は市民です。\n夜のアクションはありません。\n対面してゲームを行っている場合は、画面を操作するふりをして下さい。"))
-        elif werewolf.job[uid] == "werewolf":
-            line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は人狼です。\n夜のアクションを行います。\n殺したい相手のIDを入力して下さい。"))
-        elif werewolf.job[uid] == "seer":
-            line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は占い師です。\n夜のアクションを行います。\n占いたい相手のIDを入力して下さい。"))
-        elif werewolf.job[uid] == "knight":
-            line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は占い師です。\n夜のアクションを行います。\n守りたい相手のIDを入力して下さい。"))
-        elif werewolf.job[uid] == "madman":
-            werewolf.done[uid] = True
-            line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は狂人です。\n夜のアクションはありません。\n対面してゲームを行っている場合は、画面を操作するふりをして下さい。"))
+def night_act(uid):
+    if werewolf.job[uid] == "citizen":
+        werewolf.done[uid] = True
+        line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は市民です。\n夜のアクションはありません。\n対面してゲームを行っている場合は、画面を操作するふりをして下さい。"))
+    elif werewolf.job[uid] == "werewolf":
+        line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は人狼です。\n夜のアクションを行います。\n殺したい相手のIDを入力して下さい。"))
+    elif werewolf.job[uid] == "seer":
+        line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は占い師です。\n夜のアクションを行います。\n占いたい相手のIDを入力して下さい。"))
+    elif werewolf.job[uid] == "knight":
+        line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は占い師です。\n夜のアクションを行います。\n守りたい相手のIDを入力して下さい。"))
+    elif werewolf.job[uid] == "madman":
+        werewolf.done[uid] = True
+        line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は狂人です。\n夜のアクションはありません。\n対面してゲームを行っている場合は、画面を操作するふりをして下さい。"))
        
 #def wake_act(a):
 #    pass
