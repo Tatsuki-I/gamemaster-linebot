@@ -1,5 +1,6 @@
 from flask import Flask, request, abort
 import os
+import random
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -73,7 +74,7 @@ def werewolf_start(event):
             event.reply_token,
                 TextSendMessage(text = "あなたは既に受け付けています。"))
     elif werewolf.phase == "join" and event.message.text == "finish":
-        if len(werewolf.user_id) == 1:
+        if len(werewolf.user_id) < 2:
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text = "人数が足りません。"))
