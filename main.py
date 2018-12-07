@@ -141,8 +141,8 @@ def night_act(uid, is1st):
             werewolf.done[uid] = True
             line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は狂人です。\n夜のアクションはありません。\n対面してゲームを行っている場合は、画面を操作するふりをして下さい。"))
        
-
-
+def wake_act(a):
+    pass
 
 
 if __name__ == "__main__":
