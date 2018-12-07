@@ -87,7 +87,7 @@ def werewolf_start(event):
             random.shuffle(jobs)
             for (uid, job) in zip(werewolf.user_id, jobs):
                 line_bot_api.push_message(uid, TextSendMessage(text=job))
-    elif event.message.text == "/end":
+    elif not werewolf.phase == "wait" and vent.message.text == "/end":
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = "ゲームを強制終了します。"))
