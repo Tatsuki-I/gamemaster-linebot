@@ -32,7 +32,7 @@ class Werewolf(object):
         self.dead[user_id] = False
 
 werewolf = Werewolf()
-jobs = ["citizen", "werewolf"]
+jobs2 = ["citizen", "werewolf"]
 
 @app.route("/")
 def hello_world():
@@ -73,11 +73,17 @@ def werewolf_start(event):
             event.reply_token,
                 TextSendMessage(text = "あなたは既に受け付けています。"))
     elif werewolf.phase == "join" and event.message.text == "finish":
-        for (uid, job) in zip(werewolf.user_id, jobs):
-            line_bot_api.push_message(uid, TextSendMessage(text=job))
-        werewolf.phase == "night"
-        # "U710cbbcec0016ad696823a364a5902d9",
+        if len(werewolf.user_id) == 1:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text = "人数が足りません。"))
+        elif len(werewolf.user_id) == 2:
+            werewolf.phase == "night"
+            jobs = shuffle(jobs2)
+            for (uid, job) in zip(werewolf.user_id, jobs):
+                line_bot_api.push_message(uid, TextSendMessage(text=job))
 
+                
 # @handler.add(MessageEvent, message=TextMessage)
 # def handle_message(event):
 #     line_bot_api.reply_message(
