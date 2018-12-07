@@ -43,13 +43,13 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def start_werewolf(event):
-    if event.message.text == "werewolf":
+    if event.message.text == "/werewolf":
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=event.message.display_name))
             # TextSendMessage(text="人狼ゲームを始めます。\n親は" + event.userId))
 
-    
+
 
 # @handler.add(MessageEvent, message=TextMessage)
 # def handle_message(event):
