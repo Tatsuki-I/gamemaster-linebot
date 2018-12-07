@@ -23,13 +23,13 @@ class Werewolf(object):
     def __init__(self):
         self.phase = "wait"
         self.user_id = []
-#        self.jpb = {}
-#        self.dead = {}
+        self.job = {}
+        self.dead = {}
 
     def add_user(self, user_id):
         self.user_id.append(user_id)
-#        self.job[user_id] = "citizen"
-#        self.dead[user_id] = False
+        self.job[user_id] = "citizen"
+        self.dead[user_id] = False
 
 werewolf = Werewolf()
 
