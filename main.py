@@ -26,9 +26,10 @@ class Werewolf(object):
         self.user_id = []
         self.jpb = {}
         self.dead = {}
+
     def add_user(self, user_id):
         self.user_id.append(user_id)
-        self.job[user_id] = ""
+        self.job[user_id] = "citizen"
         self.dead[user_id] = False
 
 werewolf = Werewolf()
@@ -62,12 +63,11 @@ def werewolf_start(event):
             event.reply_token,
             TextSendMessage(text = "人狼ゲームを始めます。\nまずはじめに参加者を募ります。\n参加したい方は join と発言して下さい。\nまた、全員の参加が終了したら finish と発言して下さい。"))
     elif werewolf.phase == "join" and event.message.text == "join":
-        if True:
-        #not event.source.user_id in werewolf.user_id:
+        if not event.source.user_id in werewolf.user_id:
             werewolf.add_user(event.source.user_id)
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text = event.source.user_id + "受け付けました。"))
+                TextSendMessage(text = "受け付けました。"))
         else:
             line_bot_api.reply_message(
             event.reply_token,
