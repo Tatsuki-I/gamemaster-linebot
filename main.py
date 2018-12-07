@@ -74,8 +74,6 @@ def werewolf_start(event):
         line_bot_api.push_message(U710cbbcec0016ad696823a364a5902d9, TextSendMessage(text="Hello"))
         werewolf.phase == "night"
 
-send_text
-
 # @handler.add(MessageEvent, message=TextMessage)
 # def handle_message(event):
 #     line_bot_api.reply_message(
