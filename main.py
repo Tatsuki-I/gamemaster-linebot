@@ -60,12 +60,17 @@ def werewolf_start(event):
         werewolf.phase = "join"
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="人狼ゲームを始めます。\nまずはじめに参加者を募ります。\n参加したい方は join と発言して下さい。"))
-    elif werewolf.phase == "join" and event.message.text == "join" and event.source.user_id in werewolf.user:
-        werewolf.user.append(GameMember(event.source.user_id))
-        line_bot_api.reply_message(
+            TextSendMessage(text="人狼ゲームを始めます。\nまずはじめに参加者を募ります。\n参加したい方は join と発言して下さい。\nまた、全員の参加が終了したら finish と発言して下さい。"))
+    elif werewolf.phase == "join" and event.message.text == "join"
+        if event.source.user_id in werewolf.user:
+            werewolf.user.append(GameMember(event.source.user_id))
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="受け付けました。"))
+        else:
+            line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="受け付けました"))
+                TextSendMessage(text="あなたは既に受け付けています。"))
 
 
 
