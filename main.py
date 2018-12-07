@@ -1,6 +1,5 @@
 from flask import Flask, request, abort
 import os
-import requests
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -73,24 +72,10 @@ def werewolf_start(event):
             event.reply_token,
                 TextSendMessage(text = "あなたは既に受け付けています。"))
     elif werewolf.phase == "join" and event.message.text == "finish":
-        url = 'https://api.line.me/v2/bot/message/push'
-        data = {
-            "to": "U710cbbcec0016ad696823a364a5902d9"
-            "messages": [
-                {
-                    "type": "text",
-                    "text": "Hello, user!"
-                }
-            ]
-        }
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + YOUR_CHANNEL_ACCESS_TOKEN
-        }
-        requests.post(url, data=json.dumps(data), headers=headers)
+        line_bot_api.push_message(U710cbbcec0016ad696823a364a5902d9, TextSendMessage(text="Hello"))
         werewolf.phase == "night"
 
-
+send_text
 
 # @handler.add(MessageEvent, message=TextMessage)
 # def handle_message(event):
