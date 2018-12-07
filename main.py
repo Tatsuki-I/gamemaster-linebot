@@ -43,9 +43,11 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-   # line_bot_api.reply_message(
-   #     event.reply_token,
-   #     TextSendMessage(text=event.message.text))
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=event.message.text))
+
+def start_werewolf(event):
     if event.message.text == "werewolf":
         line_bot_api.reply_message(
             event.reply_token,
