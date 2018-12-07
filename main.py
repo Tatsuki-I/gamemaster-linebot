@@ -42,11 +42,11 @@ def callback():
     return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
-def start_werewolf(event):
+def werewolf(event):
     if event.message.text == "/werewolf":
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="人狼ゲームを始めます。\nまずはじめに参加者を募ります。\n参加したい方は join と発言して下さい。))
+            TextSendMessage(text="人狼ゲームを始めます。\nまずはじめに参加者を募ります。\n参加したい方は join と発言して下さい。"))
 
 
 
