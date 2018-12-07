@@ -113,11 +113,14 @@ def werewolf_start(event):
                 event.reply_token,
                 TextSendMessage(text = "あなたのアクションは既に終了しています。"))
         elif event.message.text.isdecimal():
-            wake_act(int(event.message.text))
+#            wake_act(int(event.message.text))
             werewolf.done[event.source.user_id] = True
-        if all(werewolf.done.items()):
-            time.sleep(10)
-            line_bot_api.push_message(werewolf.group_id, TextSendMessage(text= "全員の夜のアクションが終了しました。"))
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text = "コマンドを受け取りました。"))
+            if all(werewolf.done.items()):
+                time.sleep(5)
+                line_bot_api.push_message(werewolf.group_id, TextSendMessage(text= "全員の夜のアクションが終了しました。"))
             
 
     elif not werewolf.phase == "wait" and "/end" in event.message.text.lower():
@@ -141,8 +144,8 @@ def night_act(uid, is1st):
             werewolf.done[uid] = True
             line_bot_api.push_message(uid, TextSendMessage(text= "あなたの役職は狂人です。\n夜のアクションはありません。\n対面してゲームを行っている場合は、画面を操作するふりをして下さい。"))
        
-def wake_act(a):
-    pass
+#def wake_act(a):
+#    pass
 
 
 if __name__ == "__main__":
