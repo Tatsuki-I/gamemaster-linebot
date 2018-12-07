@@ -61,21 +61,21 @@ def callback():
 
 @handler.add(MessageEvent, message = TextMessage)
 def werewolf_start(event):
-    if werewolf.phase == "wait" and event.message.text == "/werewolf":
+    if werewolf.phase == "wait" and "/werewolf" in event.message.text.lower():
         werewolf.phase = "join"
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text = "人狼ゲームを始めます。\nまずはじめに参加者を募ります。\n参加したい方は join と発言して下さい。\nまた、全員の参加が終了したら finish と発言して下さい。"))
-    elif werewolf.phase == "join" and event.message.text == "join" and not event.source.user_id in werewolf.user_id:
+            TextSendMessage(text = "人狼ゲームを始めます。\nゲームを開始する前に、このbotを友達登録して下さい。\nはじめに参加者を募ります。\n参加したい方は join と発言して下さい。\nまた、全員の参加が終了したら finish と発言して下さい。"))
+    elif werewolf.phase == "join" and event.message.text.lower() == "join" and not event.source.user_id in werewolf.user_id:
         werewolf.add_user(event.source.user_id)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = ("受け付けました。\nあなたのIDは" + str(len(werewolf.user_id)) + "です。")))
-    elif werewolf.phase == "join" and event.message.text == "join" and event.source.user_id in werewolf.user_id:
+    elif werewolf.phase == "join" and event.message.text.lower() == "join" and event.source.user_id in werewolf.user_id:
             line_bot_api.reply_message(
             event.reply_token,
                 TextSendMessage(text = "あなたは既に受け付けています。"))
-    elif werewolf.phase == "join" and event.message.text == "finish":
+    elif werewolf.phase == "join" and event.message.text.lower() == "finish":
         if len(werewolf.user_id) < 2:
             line_bot_api.reply_message(
                 event.reply_token,
@@ -91,7 +91,7 @@ def werewolf_start(event):
                     line_bot_api.push_message(uid, TextSendMessage(text="あなたの役職は市民です。\n夜のアクションはありません。\nスマホを操作するふりをして下さい。"))
                 elif job == "werewolf":
                     line_bot_api.push_message(uid, TextSendMessage(text="あなたの役職は人狼です。\n夜のアクションを行います。\n殺したい相手のIDを入力して下さい。"))
-    elif not werewolf.phase == "wait" and event.message.text == "/end":
+    elif not werewolf.phase == "wait" and event.message.text.lower() == "/end":
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = "ゲームを強制終了します。"))
