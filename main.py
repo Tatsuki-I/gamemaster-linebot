@@ -81,7 +81,8 @@ def werewolf_start(event):
         werewolf.phase = "join"
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text = "人狼ゲームを始めます。\nゲームを開始する前に、このbotを友達登録して下さい。\nはじめに参加者を募ります。\n参加したい方は join と発言して下さい。\nまた、全員の参加が終了したら finish と発言して下さい。\nゲームを強制終了したい場合は、 /end と発言して下さい。" + event.source.group_id))
+#            TextSendMessage(text = "人狼ゲームを始めます。\nゲームを開始する前に、このbotを友達登録して下さい。\nはじめに参加者を募ります。\n参加したい方は join と発言して下さい。\nまた、全員の参加が終了したら finish と発言して下さい。\nゲームを強制終了したい場合は、 /end と発言して下さい。"))
+            TextSendMessage(text = event.source.group_id))
     elif werewolf.phase == "join" and "join" in event.message.text.lower() and not event.source.user_id in werewolf.user_id:
         werewolf.add_user(event.source.user_id)
         line_bot_api.reply_message(
