@@ -42,11 +42,12 @@ class Werewolf(object):
         self.dead = {}
 
 jobs2 = ["citizen", "werewolf"]
-jobss = { 2:["citizen", "werewolf"]
-        , 3:["citizen", "citizen", "werewolf"]
-        , 4:["citizen", "citizen", "seer", "werewolf"]
-        , 5:["citizen", "citizen", "seer", "werewolf", "knight"]
-        , 6:["citizen", "citizen", "seer", "werewolf", "knight", "madman"] }
+
+jobss = { 2 : ["citizen", "werewolf"]
+        , 3 : ["citizen", "citizen", "werewolf"]
+        , 4 : ["citizen", "citizen", "seer", "werewolf"]
+        , 5 : ["citizen", "citizen", "seer", "werewolf", "knight"]
+        , 6 : ["citizen", "citizen", "seer", "werewolf", "knight", "madman"] }
 
 @app.route("/")
 def hello_world():
@@ -94,14 +95,14 @@ def werewolf_start(event):
         else:
             werewolf.phase == "night"
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "受け付けを締め切りました。"))
-            jobs = random.sample(jobss[len(werewolf.user_id)],len(werewolf.user_id))
+            jobs = random.sample(jobss[len(werewolf.user_id)], len(werewolf.user_id))
             for (uid, job) in zip(werewolf.user_id, jobs):
                 if job == "citizen":
                     werewolf.done = True
                     line_bot_api.push_message(uid, TextSendMessage(text="あなたの役職は市民です。\n夜のアクションはありません。\nスマホを操作するふりをして下さい。"))
                 elif job == "werewolf":
                     line_bot_api.push_message(uid, TextSendMessage(text="あなたの役職は人狼です。\n夜のアクションを行います。\n殺したい相手のIDを入力して下さい。"))
-    elif not werewolf.phase == "wait" and event.message.text.lower() == "/end":
+    elif not werewolf.phase == "wait" and "/end" in event.message.text.lower():
         werewolf.reinit()
         line_bot_api.reply_message(
             event.reply_token,
