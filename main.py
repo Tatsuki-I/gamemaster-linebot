@@ -34,7 +34,7 @@ class Werewolf(object):
         self.done[user_id] = False
         self.dead[user_id] = False
 
-    def reinit(self)
+    def reinit(self):
         self.phase = "wait"
         self.user_id = []
         self.job = {}
