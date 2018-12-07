@@ -104,20 +104,19 @@ def werewolf_start(event):
                 night_act(uid)
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "受け付けを締め切りました。"))
     elif werewolf.phase == "night":
-        if True
-        #werewolf.done[event.source.user_id]:
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text = "あなたのアクションは既に終了しています。"))
-        elif event.message.text.isdecimal():
-#            wake_act(int(event.message.text))
-            werewolf.done[event.source.user_id] = True
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text = "コマンドを受け取りました。"))
-            if all(werewolf.done.items()):
-                time.sleep(5)
-                line_bot_api.push_message(werewolf.group_id, TextSendMessage(text= "全員の夜のアクションが終了しました。"))
+        #if werewolf.done[event.source.user_id]:
+        #    line_bot_api.reply_message(
+        #        event.reply_token,
+        #        TextSendMessage(text = "あなたのアクションは既に終了しています。"))
+        #elif event.message.text.isdecimal():
+#       #     wake_act(int(event.message.text))
+        werewolf.done[event.source.user_id] = True
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text = "コマンドを受け取りました。"))
+        if all(werewolf.done.items()):
+            time.sleep(5)
+            line_bot_api.push_message(werewolf.group_id, TextSendMessage(text= "全員の夜のアクションが終了しました。"))
             
 
     elif not werewolf.phase == "wait" and "/end" in event.message.text.lower():
