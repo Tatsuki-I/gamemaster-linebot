@@ -68,7 +68,7 @@ def werewolf_start(event):
         werewolf.add_user(event.source.user_id)
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text = "受け付けました。"))
+            TextSendMessage(text = "受け付けました。\nあなたのユーザー番号は" + len(werewolf.user_id) + "です。"))
     elif werewolf.phase == "join" and event.message.text == "join" and event.source.user_id in werewolf.user_id:
             line_bot_api.reply_message(
             event.reply_token,
