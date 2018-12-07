@@ -71,7 +71,8 @@ def werewolf_start(event):
             event.reply_token,
                 TextSendMessage(text = "あなたは既に受け付けています。"))
     elif werewolf.phase == "join" and event.message.text == "finish":
-        line_bot_api.push_message("U710cbbcec0016ad696823a364a5902d9", TextSendMessage(text="Hello"))
+        map(lambda x : line_bot_api.push_message(x, TextSendMessage(text="Hello")), werewolf.user_id)
+        # "U710cbbcec0016ad696823a364a5902d9",
         werewolf.phase == "night"
 
 # @handler.add(MessageEvent, message=TextMessage)
