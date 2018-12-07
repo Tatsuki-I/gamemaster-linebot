@@ -90,7 +90,8 @@ def werewolf_start(event):
                     jobjp = "人狼"
                 else:
                     jobjp = "市民"
-                line_bot_api.push_message(uid, TextSendMessage(text="あなたの役職は" + jobjp + "です。"))
+                line_bot_api.push_message(uid, TextSendMessage(text=jobjp)
+                #"あなたの役職は" + jobjp + "です。"))
     elif not werewolf.phase == "wait" and event.message.text == "/end":
         werewolf = Werewolf()
         line_bot_api.reply_message(
