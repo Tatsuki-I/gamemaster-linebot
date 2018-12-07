@@ -50,7 +50,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def werewolf_start(event):
-    if event.message.text == "/werewolf" && werewolf.phase == "wait":
+    if event.message.text == "/werewolf" and werewolf.phase == "wait":
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="人狼ゲームを始めます。\nまずはじめに参加者を募ります。\n参加したい方は join と発言して下さい。"))
