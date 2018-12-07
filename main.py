@@ -1,5 +1,6 @@
 from flask import Flask, request, abort
 import os
+import random
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -54,6 +55,8 @@ def callback():
 
     return 'OK'
 
+jobs = ["citizen", "werewolf"]
+
 @handler.add(MessageEvent, message = TextMessage)
 def werewolf_start(event):
     if werewolf.phase == "wait" and event.message.text == "/werewolf":
@@ -71,8 +74,8 @@ def werewolf_start(event):
             event.reply_token,
                 TextSendMessage(text = "あなたは既に受け付けています。"))
     elif werewolf.phase == "join" and event.message.text == "finish":
-        for uid in werewolf.user_id:
-            line_bot_api.push_message(uid, TextSendMessage(text="Hello"))
+        for (uid, job) in zip(werewolf.user_id, jobs):
+            line_bot_api.push_message(uid, TextSendMessage(text=job))
         werewolf.phase == "night"
         # "U710cbbcec0016ad696823a364a5902d9",
 
