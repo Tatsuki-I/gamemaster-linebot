@@ -41,13 +41,13 @@ class Werewolf(object):
         self.done = {}
         self.dead = {}
 
-jobs2 = ["citizen", "werewolf"]
+werewolf = Werewolf()
 
-# jobss = { 2 : ["citizen", "werewolf"]
-#         , 3 : ["citizen", "citizen", "werewolf"]
-#         , 4 : ["citizen", "citizen", "seer", "werewolf"]
-#         , 5 : ["citizen", "citizen", "seer", "werewolf", "knight"]
-#         , 6 : ["citizen", "citizen", "seer", "werewolf", "knight", "madman"] }
+jobss = { 2 : ["citizen", "werewolf"]
+        , 3 : ["citizen", "citizen", "werewolf"]
+        , 4 : ["citizen", "citizen", "seer", "werewolf"]
+        , 5 : ["citizen", "citizen", "seer", "werewolf", "knight"]
+        , 6 : ["citizen", "citizen", "seer", "werewolf", "knight", "madman"] }
 
 @app.route("/")
 def hello_world():
