@@ -71,7 +71,23 @@ def werewolf_start(event):
             line_bot_api.reply_message(
             event.reply_token,
                 TextSendMessage(text = "あなたは既に受け付けています。"))
-
+    elif werewolf.phase == "join" and event.message.text == "finish":
+        url = 'https://api.line.me/v2/bot/message/push'
+        data = {
+            "to": werewolf.user_id.head,
+            "messages": [
+                {
+                    "type": "text",
+                    "text": "Hello, user!"
+                }
+            ]
+        }
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + YOUR_CHANNEL_ACCESS_TOKEN
+        }
+        requests.post(url, data=json.dumps(data), headers=headers)
+        werewolf.phase == "night"
 
 
 
