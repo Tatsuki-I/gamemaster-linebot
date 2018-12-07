@@ -71,8 +71,8 @@ def werewolf_start(event):
             event.reply_token,
                 TextSendMessage(text = "あなたは既に受け付けています。"))
     elif werewolf.phase == "join" and event.message.text == "finish":
-        for user in werewolf.user_id
-            line_bot_api.push_message(user, TextSendMessage(text="Hello"))
+        for uid in werewolf.user_id:
+            line_bot_api.push_message(uid, TextSendMessage(text="Hello"))
         werewolf.phase == "night"
         # "U710cbbcec0016ad696823a364a5902d9",
 
